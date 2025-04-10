@@ -36,27 +36,20 @@ local pick_remote_branch = function()
     },
     sorter = conf.generic_sorter({}),
     attach_mappings = function(prompt_bufnr, map)
-      map("i", "<CR>", function()
+      local checkout = function()
         local selection = action_state.get_selected_entry()
         local branch = selection and selection.value
         if branch then
-          vim.fn.feedkeys(":Git checkout -b " .. branch .. " origin/" .. branch .. "\n", "n")
+          vim.cmd("Git checkout -b " .. branch .. " origin/" .. branch)
         end
         actions.close(prompt_bufnr)
-      end)
-      map("n", "<CR>", function()
-        local selection = action_state.get_selected_entry()
-        local branch = selection and selection.value
-        if branch then
-          vim.fn.feedkeys(":Git checkout -b " .. branch .. " origin/" .. branch .. "\n", "n")
-        end
-        actions.close(prompt_bufnr)
-      end)
+      end
+      map("i", "<CR>", checkout)
+      map("n", "<CR>", checkout)
       return true
     end,
   }):find()
 end
-
 vim.keymap.set("n", "<leader>gC", pick_remote_branch, { desc = "Fuzzy checkout remote branch" })
 
 -- vim-fugitive keybindings
