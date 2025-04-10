@@ -27,7 +27,6 @@ local pick_remote_branch = function()
   local action_state = require("telescope.actions.state")
   local conf = require("telescope.config").values
 
-  -- Get remote branches (strip remotes/origin/)
   local branches = vim.fn.systemlist("git branch -r | grep -v HEAD | sed 's|origin/||' | sort -u")
 
   pickers.new({}, {
@@ -36,12 +35,22 @@ local pick_remote_branch = function()
       results = branches,
     },
     sorter = conf.generic_sorter({}),
-    attach_mappings = function(_, map)
-      actions.select_default:replace(function()
-        actions.close()
-        local selection = action_state.get_selected_entry()[1]
-        -- Checkout the remote branch locally
-        vim.cmd("Git checkout -b " .. selection .. " origin/" .. selection)
+    attach_mappings = function(prompt_bufnr, map)
+      map("i", "<CR>", function()
+        local selection = action_state.get_selected_entry()
+        local branch = selection and selection.value
+        if branch then
+          vim.fn.feedkeys(":Git checkout -b " .. branch .. " origin/" .. branch .. "\n", "n")
+        end
+        actions.close(prompt_bufnr)
+      end)
+      map("n", "<CR>", function()
+        local selection = action_state.get_selected_entry()
+        local branch = selection and selection.value
+        if branch then
+          vim.fn.feedkeys(":Git checkout -b " .. branch .. " origin/" .. branch .. "\n", "n")
+        end
+        actions.close(prompt_bufnr)
       end)
       return true
     end,
