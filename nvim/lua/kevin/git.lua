@@ -27,6 +27,10 @@ local pick_remote_branch = function()
   local action_state = require("telescope.actions.state")
   local conf = require("telescope.config").values
 
+  -- Optional: fetch all remotes first
+  vim.fn.system("git fetch --all")
+
+  -- Get a list of remote branches (remove origin/ prefix)
   local branches = vim.fn.systemlist("git branch -r | grep -v HEAD | sed 's|origin/||' | sort -u")
 
   pickers.new({}, {
@@ -40,16 +44,27 @@ local pick_remote_branch = function()
         local selection = action_state.get_selected_entry()
         local branch = selection and selection.value
         if branch then
-          vim.cmd("Git checkout -b " .. branch .. " origin/" .. branch)
+          actions.close(prompt_bufnr)
+
+          -- Run Git checkout command and capture output
+          local result = vim.fn.system("git checkout -b " .. branch .. " origin/" .. branch)
+          local code = vim.v.shell_error
+
+          if code ~= 0 then
+            vim.notify("Git checkout failed:\n" .. result, vim.log.levels.ERROR)
+          else
+            vim.notify("Checked out remote branch: " .. branch, vim.log.levels.INFO)
+          end
         end
-        actions.close(prompt_bufnr)
       end
+
       map("i", "<CR>", checkout)
       map("n", "<CR>", checkout)
       return true
     end,
   }):find()
 end
+
 vim.keymap.set("n", "<leader>gC", pick_remote_branch, { desc = "Fuzzy checkout remote branch" })
 
 -- vim-fugitive keybindings
