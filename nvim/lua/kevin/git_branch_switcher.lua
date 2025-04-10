@@ -106,7 +106,7 @@ function M.pick_local_branch()
 end
 
 -- key‑mapping for local branches
-vim.keymap.set("n", "<leader>gb", M.pick_local_branch, { desc = "Fuzzy‑switch local branch" })
+vim.keymap.set("n", "<leader>gB", M.pick_local_branch, { desc = "Fuzzy‑switch local branch" })
 
 -- Key‑mapping (normal mode)
 vim.keymap.set("n", "<leader>gC", M.pick_remote_branch, { desc = "Fuzzy‑checkout remote branch" })
