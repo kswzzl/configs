@@ -68,6 +68,46 @@ function M.pick_remote_branch()
   }):find()
 end
 
+-- append to lua/my/git_switcher.lua
+------------------------------------------------------------
+
+-- Get local branch names (no whitespace)
+local function local_branches()
+  return vim.fn.systemlist(
+    "git for-each-ref --format='%(refname:short)' refs/heads/"
+  )
+end
+
+function M.pick_local_branch()
+  pickers.new({}, {
+    prompt_title = "Local Git Branches",
+    finder       = finders.new_table { results = local_branches() },
+    sorter       = conf.generic_sorter({}),
+    attach_mappings = function(bufnr, map)
+      local function select()
+        local entry  = action_state.get_selected_entry()
+        local branch = entry and vim.fn.trim(entry.value)
+        if not branch or branch == "" then return end
+
+        actions.close(bufnr)
+        local res = vim.fn.system({ "git", "switch", branch })
+        if vim.v.shell_error == 0 then
+          vim.notify("Switched to: " .. branch, vim.log.levels.INFO)
+        else
+          vim.notify("Git switch failed:\n" .. res, vim.log.levels.ERROR)
+        end
+      end
+
+      map("i", "<CR>", select)
+      map("n", "<CR>", select)
+      return true
+    end,
+  }):find()
+end
+
+-- key‑mapping for local branches
+vim.keymap.set("n", "<leader>gb", M.pick_local_branch, { desc = "Fuzzy‑switch local branch" })
+
 -- Key‑mapping (normal mode)
 vim.keymap.set("n", "<leader>gC", M.pick_remote_branch, { desc = "Fuzzy‑checkout remote branch" })
 
