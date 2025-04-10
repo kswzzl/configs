@@ -78,6 +78,28 @@ require("lazy").setup({
     config = function()
       require("diffview").setup({})
     end,
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("lualine").setup({
+        options = {
+          theme = "auto",
+          section_separators = { left = "", right = "" },
+          component_separators = "|",
+          icons_enabled = true,
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { "branch", "diff", "diagnostics" },
+          lualine_c = { "filename" },
+          lualine_x = { "encoding", "filetype" },
+          lualine_y = { "location" },
+          lualine_z = { "progress" },
+        },
+      })
+    end,
   }
 })
 

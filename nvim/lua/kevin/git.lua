@@ -48,6 +48,8 @@ local pick_remote_branch = function()
   }):find()
 end
 
+vim.keymap.set("n", "<leader>gC", pick_remote_branch, { desc = "Fuzzy checkout remote branch" })
+
 -- vim-fugitive keybindings
 vim.keymap.set("n", "<leader>g", ":Git<CR>", { desc = "Open Git UI" })
 vim.keymap.set("n", "<leader>gl", ":Git log<CR>", { desc = "Git log" })
