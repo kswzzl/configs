@@ -72,5 +72,12 @@ require("lazy").setup({
   },
   { "lewis6991/gitsigns.nvim" },
   { "tpope/vim-fugitive" },
+  {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("diffview").setup({})
+    end,
+  }
 })
 
