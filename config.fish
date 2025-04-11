@@ -9,7 +9,8 @@ end
 
 alias vi nvim
 
-set -gx FZF_DEFAULT_OPTS "--height=60% --border --layout=reverse --info=inline"
+set -gx EDITOR nvim
+set -gx FZF_DEFAULT_OPTS "--height=80% --border --layout=reverse --info=inline"
 
 if test -e ~/.config/fish/config.fish.local
     source ~/.config/fish/config.fish.local
