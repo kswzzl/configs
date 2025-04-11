@@ -1,6 +1,7 @@
 local keymap = vim.keymap
 
 keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
+keymap.set("n", "qq", ":qall<CR>", { desc = "quit all" })
 keymap.set("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer" })
 keymap.set("n", "<leader>bp", ":bprev<CR>", { desc = "Previous buffer" })
 keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "Delete buffer" })

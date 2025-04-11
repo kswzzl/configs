@@ -1,4 +1,5 @@
-function gC --description 'Fuzzy‑checkout remote branch (creates local tracking branch)'
+function gbr --description 'Fuzzy‑checkout remote branch (creates local tracking branch)'
+    echo "Fetching remote branches..."
     command git fetch --all --prune &
 
     set branch (command git for-each-ref --format='%(refname:short)' refs/remotes/origin \

@@ -68,9 +68,6 @@ function M.pick_remote_branch()
   }):find()
 end
 
--- append to lua/my/git_switcher.lua
-------------------------------------------------------------
-
 -- Get local branch names (no whitespace)
 local function local_branches()
   return vim.fn.systemlist(
@@ -106,10 +103,10 @@ function M.pick_local_branch()
 end
 
 -- key‑mapping for local branches
-vim.keymap.set("n", "<leader>gB", M.pick_local_branch, { desc = "Fuzzy‑switch local branch" })
+vim.keymap.set("n", "<leader>gbl", M.pick_local_branch, { desc = "Fuzzy‑switch local branch" })
 
 -- Key‑mapping (normal mode)
-vim.keymap.set("n", "<leader>gC", M.pick_remote_branch, { desc = "Fuzzy‑checkout remote branch" })
+vim.keymap.set("n", "<leader>gbr", M.pick_remote_branch, { desc = "Fuzzy‑checkout remote branch" })
 
 return M
 
