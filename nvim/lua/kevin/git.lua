@@ -1,3 +1,5 @@
+# vim: set tabstop=2 shiftwidth=2 expandtab:
+
 require("gitsigns").setup({
   current_line_blame = true,
   current_line_blame_opts = {

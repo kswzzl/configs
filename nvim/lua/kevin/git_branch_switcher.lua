@@ -1,4 +1,5 @@
--- git_branch_switcher.lua 
+# vim: set tabstop=2 shiftwidth=2 expandtab:
+
 local M = {}
 
 local Job     = require("plenary.job")

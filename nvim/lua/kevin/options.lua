@@ -1,3 +1,5 @@
+# vim: set tabstop=2 shiftwidth=2 expandtab:
+
 local opt = vim.opt
 
 opt.number = true
@@ -14,3 +16,5 @@ opt.background = "dark"
 opt.cursorline = true
 opt.scrolloff = 8
 opt.signcolumn = "yes"
+opt.clipboard = "unnamedplus"
+opt.wrap = true
