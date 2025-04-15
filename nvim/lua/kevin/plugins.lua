@@ -211,5 +211,31 @@ require("lazy").setup({
       vim.keymap.set({ 'n', 'v' }, '<leader>lch', anthropic_help, { desc = 'llm anthropic_help' })
     end,
   },
+  -- LSP + installer
+{ "neovim/nvim-lspconfig" },
+{ "williamboman/mason.nvim" },
+{ "williamboman/mason-lspconfig.nvim" },
+
+-- Completion
+{ "hrsh7th/nvim-cmp" },
+{ "hrsh7th/cmp-nvim-lsp" },
+{ "hrsh7th/cmp-buffer" },
+{ "hrsh7th/cmp-path" },
+
+-- Snippet support (minimal)
+{ "L3MON4D3/LuaSnip" },
+{ "saadparwaiz1/cmp_luasnip" },
+{
+  "ray-x/lsp_signature.nvim",
+  config = function()
+    require("lsp_signature").setup({
+      bind = true,
+      hint_enable = true,
+      handler_opts = {
+        border = "rounded",
+      },
+    })
+  end,
+},
 })
 
