@@ -56,23 +56,23 @@ require("lazy").setup({
       vim.cmd.colorscheme("tokyonight-night") -- or "tokyonight-storm"
     end,
   },
-  --{
-  --  "akinsho/bufferline.nvim",
-  --  version = "*",
-  --  dependencies = { "nvim-tree/nvim-web-devicons" },
-  --  config = function()
-  --    require("bufferline").setup({
-  --      options = {
-  --        diagnostics = "nvim_lsp",
-  --        show_buffer_close_icons = true,
-  --        show_close_icon = false,
-  --        separator_style = "slant", -- or "thin", "padded_slant", etc.
-  --      },
-  --    })
-  --    vim.opt.termguicolors = true
-  --    vim.opt.showtabline = 2
-  --  end,
-  --},
+  {
+    "akinsho/bufferline.nvim",
+    version = "*",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("bufferline").setup({
+        options = {
+          diagnostics = "nvim_lsp",
+          show_buffer_close_icons = true,
+          show_close_icon = false,
+          separator_style = "slant", -- or "thin", "padded_slant", etc.
+        },
+      })
+      vim.opt.termguicolors = true
+      vim.opt.showtabline = 2
+    end,
+  },
   {
     "echasnovski/mini.bufremove",
     version = "*",
@@ -81,11 +81,18 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>bd", bufremove.delete, { desc = "Smart buffer delete" })
     end,
   },
-  {
-    "sindrets/diffview.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+  --{
+  --  "sindrets/diffview.nvim",
+  --  dependencies = { "nvim-lua/plenary.nvim" },
+  --  config = function()
+  --    require("diffview").setup({})
+  --  end,
+  --},
+  { 
+    'echasnovski/mini.diff',
+    version = false,
     config = function()
-      require("diffview").setup({})
+      require('mini.diff').setup()
     end,
   },
   {
@@ -116,9 +123,8 @@ require("lazy").setup({
       require("which-key").setup({})
     end,
   },
-  { "lewis6991/gitsigns.nvim" },
-  { "tpope/vim-fugitive" },
-  --{ "reachingforthejack/cursortab.nvim"},
+  --{ "lewis6991/gitsigns.nvim" },
+  --{ "tpope/vim-fugitive" },
   {
     dir = vim.fn.expand("~/.config/nvim/lua/kevin/kevin-llm"),
     name = "kevin-llm",
@@ -233,6 +239,35 @@ require("lazy").setup({
       hint_enable = true,
       handler_opts = {
         border = "rounded",
+      },
+    })
+  end,
+},
+{
+  "olimorris/codecompanion.nvim",
+  opts = {},
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-treesitter/nvim-treesitter",
+  },
+  config = function()
+    require("codecompanion").setup({
+      strategies = {
+        chat = {
+          adapter = "anthropic",
+        },
+        inline = {
+          adapter = "anthropic",
+        },
+      },
+      display = {
+        diff = {
+          enabled = true,
+          close_chat_at = 240, -- Close an open chat buffer if the total columns of your display are less than...
+          layout = "vertical", -- vertical|horizontal split for default provider
+          opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
+          provider = "mini_diff", -- default|mini_diff
+        },
       },
     })
   end,

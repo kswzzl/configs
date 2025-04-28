@@ -22,7 +22,6 @@ require("gitsigns").setup({
 })
 
 -- vim-fugitive keybindings
-vim.keymap.set("n", "<leader>g", ":Git<CR>", { desc = "Open Git UI" })
 vim.keymap.set("n", "<leader>gl", ":Git log<CR>", { desc = "Git log" })
 vim.keymap.set("n", "<leader>gc", ":Git commit<CR>", { desc = "Git commit" })
 vim.keymap.set("n", "<leader>gp", ":Git push<CR>", { desc = "Git push" })

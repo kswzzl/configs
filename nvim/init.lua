@@ -6,6 +6,6 @@ vim.g.maplocalleader = " "
 require("kevin.options")
 require("kevin.keymaps")
 require("kevin.plugins")
-require("kevin.git")
+--require("kevin.git")
 require("kevin.git_branch_switcher")
 require("kevin.lsp")
